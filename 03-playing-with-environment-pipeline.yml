@@ -40,6 +40,8 @@ stages:
           steps:
           - script: echo deploy to Dev
 
+# job and deployment are both jobs but deployment has more attributes
+
 - stage: QADeploy
   jobs:
   - deployment: QADeployJob
@@ -49,5 +51,18 @@ stages:
         deploy:
           steps:
           - script: echo deploy to QA
+          - script: echo Test coverage 90%
+            displayName: "Coverage Result"
 
-# job and deployment are both jobs but deployment has more attributes
+
+- stage: StagingDeploy
+  jobs:
+  - deployment: StagingDeployJob
+    environment: Staging
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - script: echo deploy to Staging
+
+
