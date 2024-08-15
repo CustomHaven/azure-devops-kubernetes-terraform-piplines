@@ -27,17 +27,30 @@ stages:
     steps:
     - bash: echo 'Do the Build'
 
-- stage: QADeploy
+- stage: DevDeploy
   jobs:
-  # - job: QADeploy
+  # - job: DevDeploy
   #   steps:
   #   - bash: echo 'Start DevDeploy'
-  - deployment: QADeployJob
-    environment: QA
+  - deployment: DevDeployJob
+    environment: Dev
     strategy:
       runOnce:
         deploy:
           steps:
-          - script: echo deploy to QA
+          - script: echo deploy to Dev
+
+- stage: QADeploy
+  jobs:
+  - job: QADeploy
+    steps:
+    - bash: echo 'Start DevDeploy'
+  # - deployment: QADeployJob
+  #   environment: QA
+  #   strategy:
+  #     runOnce:
+  #       deploy:
+  #         steps:
+  #         - script: echo deploy to QA
 
 # job and deployment are both jobs but deployment has more attributes
