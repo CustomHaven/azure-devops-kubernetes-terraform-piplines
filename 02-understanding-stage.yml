@@ -15,6 +15,13 @@ stages:
   - job: FirstJob
     steps:
     - bash: echo $(PipelineLevelVariable)
+    - bash: echo BuildNumber:$(Build.BuildNumber)
+    - bash: echo BuildId:$(Build.BuildId)
+    - bash: echo SourceBranchName:$(Build.SourceBranchName)
+    - bash: echo SourcesDirectory:$(Build.SourcesDirectory)
+    - bash: echo ArtifactStagingDirectory:$(Build.ArtifactStagingDirectory)
+    - bash: echo DefaultWorkingDirectory:$(Build.DefaultWorkingDirectory)
+    - bash: ls -R $(System.DefaultWorkingDirectory)
 
   - job: SecondJob
     steps:
@@ -22,47 +29,47 @@ stages:
 
 
 
-- stage: DevDeploy
-  dependsOn: Build
-  variables:
-    environment: DevDeploy
-  jobs:
-  - job: FirstJob
-    steps:
-    - bash: echo $(environment)/FirstJob
+# - stage: DevDeploy
+#   dependsOn: Build
+#   variables:
+#     environment: DevDeploy
+#   jobs:
+#   - job: FirstJob
+#     steps:
+#     - bash: echo $(environment)/FirstJob
   
-  - job: SecondJob
-    steps:
-    - bash: echo DevDeploy/SecondJob
+#   - job: SecondJob
+#     steps:
+#     - bash: echo DevDeploy/SecondJob
 
 
 
-- stage: QADeploy
-  dependsOn: Build
-  variables:
-    environment: QADeploy
-  jobs:
-  - job: FirstJob
-    steps:
-    - bash: echo $(envitonment)/FirstJob
+# - stage: QADeploy
+#   dependsOn: Build
+#   variables:
+#     environment: QADeploy
+#   jobs:
+#   - job: FirstJob
+#     steps:
+#     - bash: echo $(envitonment)/FirstJob
 
-  - job: SecondJob
-    steps:
-    - bash: echo QADeploy/SecondJob
+#   - job: SecondJob
+#     steps:
+#     - bash: echo QADeploy/SecondJob
 
 
-- stage: ProdDeploy
-  dependsOn:
-  - QADeploy
-  - DevDeploy
-  variables:
-    environment: ProdDeploy
-  jobs:
-  - job: FirstJob
-    steps:
-    - bash: echo $(envitonment)/FirstJob
+# - stage: ProdDeploy
+#   dependsOn:
+#   - QADeploy
+#   - DevDeploy
+#   variables:
+#     environment: ProdDeploy
+#   jobs:
+#   - job: FirstJob
+#     steps:
+#     - bash: echo $(envitonment)/FirstJob
 
-  - job: SecondJob
-    steps:
-    - bash: echo ProdDeploy/SecondJob
+#   - job: SecondJob
+#     steps:
+#     - bash: echo ProdDeploy/SecondJob
 
