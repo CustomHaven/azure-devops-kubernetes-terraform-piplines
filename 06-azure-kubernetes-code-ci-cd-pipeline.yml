@@ -5,8 +5,8 @@ resources:
 - repo: self
 
 variables:
-  # tag: '$(Build.BuildId)'
-  tag: 31
+  tag: '$(Build.BuildId)'
+  # tag: 31
 
 stages:
 - stage: Build
@@ -17,14 +17,14 @@ stages:
     pool:
       vmImage: ubuntu-latest
     steps:
-    # - task: Docker@2
-    #   displayName: Build An Image
-    #   inputs:
-    #     containerRegistry: 'customhaven-docker-hub'
-    #     repository: 'customhaven/current-exchange-devops'
-    #     command: 'buildAndPush'
-    #     Dockerfile: '**/Dockerfile'
-    #     tags: '$(tag)'
+    - task: Docker@2
+      displayName: Build An Image
+      inputs:
+        containerRegistry: 'customhaven-docker-hub'
+        repository: 'customhaven/current-exchange-devops'
+        command: 'buildAndPush'
+        Dockerfile: '**/Dockerfile'
+        tags: '$(tag)'
 
     - task: CopyFiles@2
       inputs:

@@ -23,7 +23,7 @@ spec:
     spec:
       containers:
       - name: currency-exchange
-        image: customhaven/current-exchange-devops
+        image: customhaven/current-exchange-devops # mispelled the image doesnt matter anyway
         imagePullPolicy: IfNotPresent
         ports:
         - name: liveness-port
